@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>一個人的一生 · 1in8b Engine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+  <h1>一個人的一生</h1>
+  <p class="sub">看一個人從出生到離世的一生，或找一個今天還活著的人，看他現在過得怎麼樣。</p>
+
+  <form class="panel" id="form" onsubmit="return false">
+    <label for="key">API 金鑰（以 k8b_ 開頭，只在這個頁面開著時使用，不會被儲存）</label>
+    <input id="key" type="password" placeholder="k8b_..." autocomplete="off" spellcheck="false">
+
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab on" data-mode="life">看一個人的一生</button>
+      <button type="button" class="tab" data-mode="person">找一個今天活著的人</button>
+    </div>
+
+    <div class="row">
+      <!-- 兩種模式共用 -->
+      <div>
+        <label for="country">國家</label>
+        <select id="country"><option>載入國家清單中…</option></select>
+      </div>
+      <div>
+        <label for="sex">性別</label>
+        <select id="sex">
+          <option value="female">女生</option>
+          <option value="male">男生</option>
+          <option value="">隨機</option>
+        </select>
+      </div>
+
+      <!-- 看一個人的一生 -->
+      <div data-for="life">
+        <label for="year">出生年份（1950～2025，空白＝今天）</label>
+        <input id="year" type="number" min="1950" max="2025" step="1" placeholder="空白＝今天">
+      </div>
+      <div data-for="life">
+        <label for="fifth">家境（出生時家庭的收入五分位）</label>
+        <select id="fifth">
+          <option value="">不限（隨機）</option>
+          <option value="1">第 1 組：收入最低的 20%</option>
+          <option value="2">第 2 組：偏低</option>
+          <option value="3">第 3 組：中間</option>
+          <option value="4">第 4 組：偏高</option>
+          <option value="5">第 5 組：收入最高的 20%</option>
+        </select>
+      </div>
+      <div data-for="life">
+        <label for="place">出生在</label>
+        <select id="place">
+          <option value="">不限（隨機）</option>
+          <option value="town">城鎮</option>
+          <option value="village">鄉村</option>
+        </select>
+      </div>
+
+      <!-- 找一個今天活著的人 -->
+      <div data-for="person" class="hide">
+        <label for="age">年齡（0～76，空白＝隨機）</label>
+        <input id="age" type="number" min="0" max="76" step="1" placeholder="隨機">
+      </div>
+      <div data-for="person" class="hide">
+        <label for="education">學歷至少</label>
+        <select id="education">
+          <option value="">不限</option>
+          <option value="none">沒有受過正式教育</option>
+          <option value="primary">小學</option>
+          <option value="lower_secondary">國中</option>
+          <option value="upper_secondary">高中</option>
+          <option value="university">大學</option>
+          <option value="graduate">研究所</option>
+        </select>
+      </div>
+      <div data-for="person" class="hide">
+        <label for="job">工作類別</label>
+        <select id="job">
+          <option value="">不限</option>
+          <option value="agriculture">農業</option>
+          <option value="industry">工業</option>
+          <option value="services">服務業</option>
+        </select>
+      </div>
+      <div data-for="person" class="hide">
+        <label for="partnered">有伴侶嗎</label>
+        <select id="partnered">
+          <option value="">不限</option>
+          <option value="true">有伴侶</option>
+          <option value="false">沒有伴侶</option>
+        </select>
+      </div>
+      <div data-for="person" class="hide">
+        <label for="children">孩子至少（個）</label>
+        <input id="children" type="number" min="0" max="20" step="1" placeholder="不限">
+      </div>
+      <div data-for="person" class="hide">
+        <label for="withRecord">過去的紀錄</label>
+        <select id="withRecord">
+          <option value="">不附（較省）</option>
+          <option value="1">附上逐年的紀錄</option>
+        </select>
+      </div>
+    </div>
+
+    <details data-for="life">
+      <summary>什麼是「收入五分位」？怎麼判斷？</summary>
+      <p>把同一個地方所有家庭，依收入從低排到高，平均切成 5 組，每組各占 20%。第幾組就是這個家庭在這條隊伍裡的位置：</p>
+      <table>
+        <tr><th>組別</th><th>意思</th><th>大約是</th></tr>
+        <tr><td>第 1 組</td><td>收入最低的 20%</td><td>比 80% 以上的家庭窮</td></tr>
+        <tr><td>第 2 組</td><td>偏低</td><td>比大約 60%～80% 的家庭窮</td></tr>
+        <tr><td>第 3 組</td><td>中間</td><td>在中間，高低各約一半</td></tr>
+        <tr><td>第 4 組</td><td>偏高</td><td>比大約 60%～80% 的家庭富</td></tr>
+        <tr><td>第 5 組</td><td>收入最高的 20%</td><td>比 80% 以上的家庭富</td></tr>
+      </table>
+      <p class="hint">這是「相對的位置」，不是固定的金額：同樣是第 3 組，在不同國家的實際收入可能差很多。引擎究竟是以國家內部還是全世界來排，我沒有讀到它的說明文件，無法確認。</p>
+    </details>
+
+    <button type="button" id="submit" class="go" disabled>出生</button>
+    <p class="hint" id="hint"></p>
+  </form>
+
+  <div id="error" role="alert"></div>
+  <div id="status"></div>
+  <div id="result"></div>
+  <div id="note" class="note-box"></div>
+</main>
+
+<!-- 一般的 <script>（不是 ES module），這樣直接用瀏覽器開檔案也能執行。順序有相依性，請勿調換。 -->
+<script src="js/config.js"></script>
+<script src="js/dom.js"></script>
+<script src="js/format.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/form.js"></script>
+<script src="js/render/components.js"></script>
+<script src="js/render/story.js"></script>
+<script src="js/render/life.js"></script>
+<script src="js/render/person.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

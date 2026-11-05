@@ -1,0 +1,179 @@
+/* ==========================================================================
+   1. 主題顏色（自動跟隨系統的淺色／深色）
+   ========================================================================== */
+:root {
+  --bg: #faf8f5;
+  --card: #ffffff;
+  --text: #222222;
+  --muted: #6b6b6b;
+  --line: #e4e0da;
+  --accent: #c2410c;
+  --soft: #f4efe8;
+  --track: #eee9e2;
+  --error: #b42318;
+  --error-bg: #fdecea;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16140f;
+    --card: #211e18;
+    --text: #eee9e0;
+    --muted: #a39d92;
+    --line: #38342b;
+    --accent: #f08a54;
+    --soft: #2a261f;
+    --track: #34302a;
+    --error: #ff9d93;
+    --error-bg: #3a1d1a;
+  }
+}
+
+/* ==========================================================================
+   2. 基本版面
+   ========================================================================== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  line-height: 1.8;
+}
+
+main { max-width: 780px; margin: 0 auto; padding: 20px 16px 48px; }
+h1 { font-size: 1.6rem; margin: 8px 0 4px; }
+.sub { color: var(--muted); margin: 0 0 18px; font-size: .95rem; }
+.hide { display: none !important; }
+
+/* ==========================================================================
+   3. 表單
+   ========================================================================== */
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+
+label { display: block; font-size: .85rem; color: var(--muted); margin: 0 0 4px; }
+
+input, select {
+  width: 100%;
+  font: inherit;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+
+.tabs { display: flex; gap: 8px; margin: 14px 0 4px; }
+.tab {
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+.tab.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.go {
+  font: inherit;
+  font-weight: 600;
+  margin-top: 14px;
+  padding: 11px 22px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.go:disabled { opacity: .55; cursor: wait; }
+
+.hint { font-size: .8rem; color: var(--muted); margin: 8px 0 0; }
+
+details { margin-top: 12px; font-size: .9rem; background: var(--soft); border-radius: 10px; padding: 8px 12px; }
+summary { cursor: pointer; font-weight: 600; }
+details table { border-collapse: collapse; margin: 8px 0; width: 100%; }
+details th, details td { border-bottom: 1px solid var(--line); padding: 4px 6px; text-align: left; font-size: .85rem; }
+
+/* ==========================================================================
+   4. 訊息
+   ========================================================================== */
+#error {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--error-bg);
+  color: var(--error);
+}
+#status { margin-top: 16px; color: var(--muted); }
+
+.note-box {
+  display: none;
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--card);
+  font-size: .9rem;
+}
+
+.usage { margin-top: 12px; font-size: .8rem; color: var(--muted); }
+
+/* ==========================================================================
+   5. 結果：人物卡片、長條圖、清單
+   ========================================================================== */
+.hero {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--accent);
+}
+.hero h2 { margin: 0 0 6px; font-size: 1.4rem; }
+.hero p { margin: 0 0 4px; }
+
+.sec { font-weight: 700; color: var(--accent); margin: 18px 0 4px; }
+ul.plain { margin: 4px 0; padding-left: 20px; }
+
+.bar { margin: 8px 0; }
+.bar .top { display: flex; justify-content: space-between; font-size: .85rem; }
+.track { height: 12px; margin-top: 3px; border-radius: 6px; background: var(--track); overflow: hidden; }
+.fill { height: 100%; width: 0; border-radius: 6px; background: var(--accent); transition: width .6s; }
+
+/* ==========================================================================
+   6. 結果：逐年的故事
+   ========================================================================== */
+.stage { margin-top: 26px; }
+.stage h3 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+.age { display: grid; grid-template-columns: 64px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.age .n { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.age p { margin: 0 0 6px; }
+.age p.decision {
+  padding: 4px 10px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: var(--soft);
+  font-weight: 600;
+}
+.age p.note { font-size: .8rem; color: var(--muted); line-height: 1.6; margin-top: -2px; }
+
+/* ==========================================================================
+   7. 手機版
+   ========================================================================== */
+@media (max-width: 640px) {
+  .row { grid-template-columns: 1fr; }
+  .age { grid-template-columns: 52px 1fr; }
+}
