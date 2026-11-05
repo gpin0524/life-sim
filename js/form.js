@@ -74,6 +74,7 @@
       job: byId("job").value,
       partnered: byId("partnered").value,
       children: optionalInteger(byId("children").value, limits.children),
+      tries: byId("tries").value,
       record: byId("withRecord").value
     };
   }

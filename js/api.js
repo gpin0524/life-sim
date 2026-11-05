@@ -106,10 +106,19 @@
     return { life, usage: body.usage };
   }
 
+  /** 答案裡人物的位置沒有文件可查，所以幾種可能的位置都試。 */
+  function firstPerson(body) {
+    if (Array.isArray(body.people) && body.people[0]) return body.people[0];
+    if (body.person) return body.person;
+    if (Array.isArray(body.results) && body.results[0]) return body.results[0];
+    if (body.found === false) return body; // 抽不到符合條件的人，也是正常的答案
+    return null;
+  }
+
   /** 今天活著的人。回傳 { person, usage }。 */
   async function fetchPerson(params, apiKey) {
     const body = await getFromFirstAvailablePath(personEndpoints, params, apiKey);
-    const person = body.people && body.people[0];
+    const person = firstPerson(body);
     if (!person) throw new Error("這次沒有找到符合條件的人。可以放寬條件再試一次。");
     return { person, usage: body.usage };
   }

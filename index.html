@@ -99,6 +99,14 @@
         <input id="children" type="number" min="0" max="20" step="1" placeholder="不限">
       </div>
       <div data-for="person" class="hide">
+        <label for="tries">最多抽幾個人來比對</label>
+        <select id="tries">
+          <option value="">預設（10 個）</option>
+          <option value="20">20 個（較容易找到，可能用更多單位）</option>
+          <option value="30">30 個（更容易找到，可能用更多單位）</option>
+        </select>
+      </div>
+      <div data-for="person" class="hide">
         <label for="withRecord">過去的紀錄</label>
         <select id="withRecord">
           <option value="">不附（較省）</option>

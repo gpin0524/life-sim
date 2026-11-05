@@ -122,6 +122,8 @@ details th, details td { border-bottom: 1px solid var(--line); padding: 4px 6px;
   font-size: .9rem;
 }
 
+.raw { max-height: 360px; overflow: auto; font-size: .75rem; line-height: 1.4; white-space: pre-wrap; word-break: break-all; }
+
 .usage { margin-top: 12px; font-size: .8rem; color: var(--muted); }
 
 /* ==========================================================================
